@@ -17,4 +17,4 @@ I highly recommend using **[VoTT](https://github.com/Microsoft/VoTT)** since it 
 
 If your tagging tool does not generate the *exact* same files as the above, you can easily modify the source code to adjust the differences.
 
-So, if you are using VoTT there is almost not need for you to modify the source, just download the `wrapper.jar` and then execute it like this: `java -jar wrapper.jar [.csv FILE] [output DIRECTORY] [-copy]`. If you execute it without arguments, it should print more help.
+So, if you are using VoTT there is almost not need for you to modify the source, just download the lastest release and then execute it like this: `java -jar wrapper.jar [.csv FILE] [output DIRECTORY] [-copy]`. If you execute it without arguments, it should print more help.
