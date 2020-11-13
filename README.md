@@ -17,4 +17,14 @@ I highly recommend using **[VoTT](https://github.com/Microsoft/VoTT)** since it 
 
 If your tagging tool does not generate the *exact* same files as the above, you can easily modify the source code to adjust the differences.
 
-So, if you are using VoTT there is almost not need for you to modify the source, just download the lastest release and then execute it like this: `java -jar wrapper.jar [.csv FILE] [output DIRECTORY] [-copy]`. If you execute it without arguments, it should print more help.
+So, if you are using VoTT there is almost not need for you to modify the source, just download the lastest release and you are good to go.
+## Usage
+
+`java -jar wrapper.jar [.csv FILE] [output DIRECTORY] [-copy]`
+
+- The images MUST be located in the same directory as the .csv file.
+
+- The output directory (usually the darknet directory) is optional: If it is specified, metadata files will be genereated; 
+If it is not specified, no metadata files will be generated, and all yolo-coordinates files will be written to the same directory from where the images where read.
+
+- By default, the program does not copy the images to the output dir, since it can take many time (in large datasets), and so the user has to manually copy them later. However, if you would like the program to include the images in the output dir, you can specify the "-copy" option at the end of the command.
