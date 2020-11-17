@@ -2,30 +2,39 @@
 public class Yolo
 {
 	public String localName;
+	public YoloEntry[] entries;
 
-	public int tagIndex;
-	public float midX;
-	public float midY;
-	public float width;
-	public float height;
-
-	public Yolo(String localName, int tagIndex, float midX, float midY, float width, float height)
+	public Yolo(String localName, YoloEntry[] entries)
 	{
 		this.localName = localName;
-		this.tagIndex = tagIndex;
-		this.midX = midX;
-		this.midY = midY;
-		this.width = width;
-		this.height = height;
+		this.entries = entries;
 	}
 
-	public void print()
+	public Yolo(String localName, YoloEntry entry)
 	{
-		System.out.println(localName + "; " + getAsString());
+		this.localName = localName;
+		this.entries = new YoloEntry[1];
+		this.entries[0] = entry;
 	}
 
-	public String getAsString()
+	public void addEntry(YoloEntry newEntry)
 	{
-		return tagIndex + " " + midX + " " + midY + " " + width + " " + height;
+		YoloEntry[] newEntries = new YoloEntry[entries.length + 1];
+		for (int i = 0; i < entries.length; i++)
+		{
+			newEntries[i] = entries[i];
+		}
+		newEntries[entries.length] = newEntry;
+		entries = newEntries;
+	}
+
+	public String[] getAsStringLines()
+	{
+		String[] ans = new String[entries.length];
+		for (int i = 0; i < ans.length; i++)
+		{
+			ans[i] = entries[i].toString();
+		}
+		return ans;
 	}
 }

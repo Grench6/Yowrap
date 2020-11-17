@@ -16,14 +16,6 @@ public class CSV
 		this.imageNames = imageNames;
 	}
 
-	public void print()
-	{
-		for (CSVEntry entry : entries)
-		{
-			entry.print();
-		}
-	}
-
 	public static CSV readCSVFromFile(File file)
 	{
 		ArrayList<CSVEntry> tempEntries = new ArrayList<CSVEntry>();
@@ -45,26 +37,36 @@ public class CSV
 				ymin = Utils.extractExclusive(ymin, ",");
 				xmax = Utils.extractExclusive(xmax, ",");
 				ymax = Utils.extractExclusive(ymax, ",");
-				CSVEntry temp_CSVEntry = new CSVEntry(fileName, Double.parseDouble(xmin), Double.parseDouble(ymin),
-						Double.parseDouble(xmax), Double.parseDouble(ymax), tag);
+				CSVEntry temp_CSVEntry = new CSVEntry(fileName, Double.parseDouble(xmin), Double.parseDouble(ymin), Double.parseDouble(xmax), Double.parseDouble(ymax), tag);
 				if (!tempTags.contains(tag))
 					tempTags.add(tag);
-				tempImageNames.add(fileName);
+				if (!tempImageNames.contains(fileName))
+					tempImageNames.add(fileName);
 				tempEntries.add(temp_CSVEntry);
 			}
 		} catch (Exception e)
 		{
 			e.printStackTrace();
 		}
-		CSVEntry[] ans = new CSVEntry[tempEntries.size()];
-		ans = tempEntries.toArray(ans);
+		CSVEntry[] ans_tempEntries = new CSVEntry[tempEntries.size()];
+		ans_tempEntries = tempEntries.toArray(ans_tempEntries);
 
-		String[] tagans = new String[tempTags.size()];
-		tagans = tempTags.toArray(tagans);
+		String[] ans_tempTags = new String[tempTags.size()];
+		ans_tempTags = tempTags.toArray(ans_tempTags);
 
-		String[] imgans = new String[tempImageNames.size()];
-		imgans = tempImageNames.toArray(imgans);
+		String[] ans_tempImageNames = new String[tempImageNames.size()];
+		ans_tempImageNames = tempImageNames.toArray(ans_tempImageNames);
 
-		return new CSV(ans, tagans, imgans);
+		return new CSV(ans_tempEntries, ans_tempTags, ans_tempImageNames);
+	}
+
+	public String[] getAsStringLines()
+	{
+		String[] ans = new String[entries.length];
+		for (int i = 0; i < ans.length; i++)
+		{
+			ans[i] = entries[i].toString();
+		}
+		return ans;
 	}
 }

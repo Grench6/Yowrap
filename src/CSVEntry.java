@@ -18,8 +18,9 @@ public class CSVEntry
 		this.tag = tag;
 	}
 
-	public void print()
+	@Override
+	public String toString()
 	{
-		System.out.println(localName + "," + xmin + "," + ymin + "," + xmax + "," + ymax + "," + tag);
+		return localName + "," + xmin + "," + ymin + "," + xmax + "," + ymax + "," + tag;
 	}
 }

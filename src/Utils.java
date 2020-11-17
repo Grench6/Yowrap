@@ -45,6 +45,16 @@ public class Utils
 		return original.substring(0, index);
 	}
 
+	public static String inverseExtractExclusive(String original, String pattern)
+	{
+		int index = original.lastIndexOf(pattern);
+		if (index == -1)
+		{
+			return original;
+		}
+		return original.substring(index + pattern.length(), original.length());
+	}
+
 	public static Dimension getDimensionsOfImage(File file)
 	{
 		try (ImageInputStream in = ImageIO.createImageInputStream(file))
@@ -69,14 +79,18 @@ public class Utils
 		return null;
 	}
 
-	public static void writeLinesToFile(File file, String[] lines)
+	public static void writeLinesToFile(File file, String[] lines, boolean append)
 	{
-		try (BufferedWriter bw = new BufferedWriter(new FileWriter(file)))
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, append)))
 		{
 			for (int i = 0; i < lines.length; i++)
 			{
 				if (i != 0)
-					bw.newLine();
+				{
+					// Since I use the wrapper in Windows, but I use its output in Unix...
+					bw.write('\n');
+					// bw.newLine();
+				}
 				bw.write(lines[i]);
 			}
 		} catch (Exception e)
@@ -85,10 +99,16 @@ public class Utils
 		}
 	}
 
-	public static void writeLineToFile(File file, String line)
+	public static void writeLineToFile(File file, String line, boolean append)
 	{
-		try (BufferedWriter bw = new BufferedWriter(new FileWriter(file)))
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, append)))
 		{
+			if (append)
+			{
+				// Since I use the wrapper in Windows, but I use its output in Unix...
+				bw.write('\n');
+				// bw.newLine();
+			}
 			bw.write(line);
 		} catch (Exception e)
 		{

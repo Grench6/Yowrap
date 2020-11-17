@@ -13,8 +13,7 @@ public class YoloMeta
 	private File darknetFolder;
 	private String metadataFolderRTDN;
 
-	public YoloMeta(File darknetFolder, String metadataFolderRTDN, String imagesFolderRTDN, String[] imagesNames,
-			String[] sortedTags)
+	public YoloMeta(File darknetFolder, String metadataFolderRTDN, String imagesFolderRTDN, String[] imagesNames, String[] sortedTags)
 	{
 		this.darknetFolder = darknetFolder;
 		this.metadataFolderRTDN = metadataFolderRTDN;
@@ -25,21 +24,14 @@ public class YoloMeta
 		}
 		train = new Train("train.txt", imagesRTDN);
 		names = new Names("obj.names", sortedTags);
-		data = new Data("obj.data", names.sortedTags.length, train.localFileName, "none", names.localFileName,
-				"backup/");
+		data = new Data("obj.data", names.sortedTags.length, metadataFolderRTDN + "/" + train.localFileName, "none", metadataFolderRTDN + "/" + names.localFileName, "backup/");
 	}
 
 	public void createAllMetadataFiles()
 	{
-		Utils.writeLinesToFile(
-				new File(darknetFolder.getAbsolutePath() + "/" + metadataFolderRTDN + "/" + data.localFileName),
-				data.getAsStringLines());
-		Utils.writeLinesToFile(
-				new File(darknetFolder.getAbsolutePath() + "/" + metadataFolderRTDN + "/" + names.localFileName),
-				names.getAsStringLines());
-		Utils.writeLinesToFile(
-				new File(darknetFolder.getAbsolutePath() + "/" + metadataFolderRTDN + "/" + train.localFileName),
-				train.getAsStringLines());
+		Utils.writeLinesToFile(new File(darknetFolder.getAbsolutePath() + "/" + metadataFolderRTDN + "/" + data.localFileName), data.getAsStringLines(), false);
+		Utils.writeLinesToFile(new File(darknetFolder.getAbsolutePath() + "/" + metadataFolderRTDN + "/" + names.localFileName), names.getAsStringLines(), false);
+		Utils.writeLinesToFile(new File(darknetFolder.getAbsolutePath() + "/" + metadataFolderRTDN + "/" + train.localFileName), train.getAsStringLines(), false);
 		try
 		{
 			Path backupPath = Paths.get(darknetFolder.getAbsolutePath() + "/" + data.backup_RTDN);
@@ -54,19 +46,18 @@ public class YoloMeta
 	{
 		public final String localFileName;
 		private int classes;
-		private String train_localFileName;
-		private String valid_localFileName;
-		private String names_localFileName;
+		private String train_RTDN;
+		private String valid_RTDN;
+		private String names_RTDN;
 		private String backup_RTDN;
 
-		public Data(String localFileName, int classes, String train_localFileName, String valid_localFileName,
-				String names_localFileName, String backup_RTDN)
+		public Data(String localFileName, int classes, String train_RTDN, String valid_RTDN, String names_RTDN, String backup_RTDN)
 		{
 			this.localFileName = localFileName;
 			this.classes = classes;
-			this.train_localFileName = train_localFileName;
-			this.valid_localFileName = valid_localFileName;
-			this.names_localFileName = names_localFileName;
+			this.train_RTDN = train_RTDN;
+			this.valid_RTDN = valid_RTDN;
+			this.names_RTDN = names_RTDN;
 			this.backup_RTDN = backup_RTDN;
 		}
 
@@ -74,9 +65,9 @@ public class YoloMeta
 		{
 			String[] ans = new String[5];
 			ans[0] = "classes = " + classes;
-			ans[1] = "train = " + train_localFileName;
-			ans[2] = "valid = " + valid_localFileName;
-			ans[3] = "names = " + names_localFileName;
+			ans[1] = "train = " + train_RTDN;
+			ans[2] = "valid = " + valid_RTDN;
+			ans[3] = "names = " + names_RTDN;
 			ans[4] = "backup = " + backup_RTDN;
 			return ans;
 		}
