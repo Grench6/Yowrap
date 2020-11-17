@@ -20,11 +20,25 @@ If your tagging tool does not generate the *exact* same files as the above, you 
 So, if you are using VoTT there is almost not need for you to modify the source, just download the lastest release and you are good to go.
 ## Usage
 
-`java -jar wrapper.jar [.csv FILE] [output DIRECTORY] [-copy]`
+`java -jar wrapper.jar [.csv FILE] [output DIRECTORY] [options]`
 
-- The images MUST be located in the same directory as the .csv file.
+----- [.csv FILE] [output DIRECTORY] -----
+The images MUST be located in the same directory as the .csv file.
+The output directory (darknet directory) is optional: If it IS specified, metadata
+files will be genereated; If it IS NOT specified, no metadata files will be generated, and
+all yolo-coordinates files will be written to the directory from where the images where read.
 
-- The output directory (usually the darknet directory) is optional: If it is specified, metadata files will be genereated; 
-If it is not specified, no metadata files will be generated, and all yolo-coordinates files will be written to the same directory from where the images where read.
+----- [options] -----
+"-copy": By default, the program does not copy the images, since it can take many time (in large
+datasets), so the user has to manually copy them later. However, if you would like the program
+to copy the images for you, you can specify this option.
 
-- By default, the program does not copy the images to the output dir, since it can take many time (in large datasets), and so the user has to manually copy them later. However, if you would like the program to include the images in the output dir, you can specify the "-copy" option at the end of the command.
+"-style_verify": By default the program generates a structure of folders and subfolders that is
+exactly the same as the darknet_trainning example. You should leave it that way, but if you want to
+verify that this program is working correctly, you can specify this option, and then you can verify
+everything with yolo-mark.
+
+"-rename": By default the program does not rename the generated yolo-files nor the copied images
+(in case the copy option is specified). However, there can be times (whlie working with videos) when
+it is better to have your files renamed in a linear sequence (0.jpg, 0.txt, 1.jpg, 1.txt ...) in
+order to prevent weird names that darknet may not proccess correcly, or just to have some order.
