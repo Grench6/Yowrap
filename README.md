@@ -44,3 +44,7 @@ everything with yolo-mark.
 (in case the copy option is specified). However, there can be times (whlie working with videos) when
 it is better to have your files renamed in a linear sequence (0.jpg, 0.txt, 1.jpg, 1.txt ...) in
 order to prevent weird names that darknet may not proccess correcly, or just to have some order.
+
+**Example**
+
+`java -jar wrapper.jar C:\Users\Grench\Desktop\My_Training_Project\vott-csv-export\export.csv C:\Users\Grench\Desktop\out -copy -rename`
