@@ -22,13 +22,15 @@ So, if you are using VoTT there is almost not need for you to modify the source,
 
 `java -jar wrapper.jar [.csv FILE] [output DIRECTORY] [options]`
 
------ [.csv FILE] [output DIRECTORY] -----
+**File and directory**
+
 The images MUST be located in the same directory as the .csv file.
 The output directory (darknet directory) is optional: If it IS specified, metadata
 files will be genereated; If it IS NOT specified, no metadata files will be generated, and
 all yolo-coordinates files will be written to the directory from where the images where read.
 
------ [options] -----
+**Options**
+
 "-copy": By default, the program does not copy the images, since it can take many time (in large
 datasets), so the user has to manually copy them later. However, if you would like the program
 to copy the images for you, you can specify this option.
